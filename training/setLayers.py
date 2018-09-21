@@ -446,10 +446,10 @@ if __name__ == "__main__":
     # Two branch: weight = 1, scale 0.5~1.1, fix the mode, base_lr = 4e-5, batch_size = 10
     if(exp == 1):
         directory = 'COCO_exp_caffe/pose56/exp22/'
-        serverFolder = '/home/zhecao/COCO_kpt/pose56/exp22'
-        base_folder = '/media/posenas4b/User/zhe/arch/'+directory+'model'
-        dataFolder = '/home/zhecao/COCO_kpt/lmdb_trainVal'
-        source = '/home/zhecao/COCO_kpt/lmdb_trainVal'
+        serverFolder = 'COCO_kpt/pose56/exp22'
+        base_folder = directory+'model'
+        dataFolder = 'COCO_kpt/lmdb_trainVal'
+        source = 'COCO_kpt/lmdb_trainVal'
         base_lr = 4e-5   # 2e-5
         batch_size = 10
         np = 56    # num_parts

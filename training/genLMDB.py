@@ -5,7 +5,7 @@ import cv2
 import lmdb
 import sys, os
 # change your caffe path here
-sys.path.insert(0, os.path.join('/home/zhecao/caffe/', 'python/'))
+sys.path.insert(0, os.path.join('/media/pi/67bd1864-7b1e-45a8-bb15-aa7d27c90853/xx/caffe_train/', 'python/'))
 import caffe
 import os.path
 import struct
@@ -55,20 +55,20 @@ def writeLMDB(datasets, lmdb_path, validation):
 		if "MPI" in data[idx]['dataset']:
 			path_header = 'dataset/MPI/images/'
 		elif "COCO" in data[idx]['dataset']:
-			path_header = '/media/posenas4b/User/zhe/Convolutional-Pose-Machines/training/dataset/COCO/images/'
+			path_header = 'dataset/COCO/images/'
 
-		print os.path.join(path_header, data[idx]['img_paths'])
-		img = cv2.imread(os.path.join(path_header, data[idx]['img_paths']))
-		#print data[idx]['img_paths']
-		img_idx = data[idx]['img_paths'][-16:-3];
-		#print img_idx
+		img = cv2.imread(data[idx]['img_paths'])
+		print data[idx]['img_paths']
+		img_paths = data[idx]['img_paths'].split('/');
+		img_path = img_paths[-2];
+		img_name = img_paths[-1];
 		if "COCO_val" in data[idx]['dataset']:
-			mask_all = cv2.imread(path_header+'mask2014/val2014_mask_all_'+img_idx+'png', 0)
-			mask_miss = cv2.imread(path_header+'mask2014/val2014_mask_miss_'+img_idx+'png', 0)
+			mask_all = cv2.imread(path_header+'mask2014/mask_all_'+img_path+'_'+img_name+'.png', 0)
+			mask_miss = cv2.imread(path_header+'mask2014/mask_miss_'+img_path+'_'+img_name+'.png', 0)
 			#print path_header+'mask2014/val2014_mask_miss_'+img_idx+'png'
 		elif "COCO" in data[idx]['dataset']:
-			mask_all = cv2.imread(path_header+'mask2014/train2014_mask_all_'+img_idx+'png', 0)
-			mask_miss = cv2.imread(path_header+'mask2014/train2014_mask_miss_'+img_idx+'png', 0)
+			mask_all = cv2.imread(path_header+'mask2014/mask_all_'+img_path+'_'+img_name+'.png', 0)
+			mask_miss = cv2.imread(path_header+'mask2014/mask_miss_'+img_path+'_'+img_name+'.png', 0)
 			#print path_header+'mask2014/train2014_mask_miss_'+img_idx+'png'
 		elif "MPI" in data[idx]['dataset']:
 			img_idx = data[idx]['img_paths'][-13:-3];
@@ -192,4 +192,4 @@ def float2bytes(floats):
 
 if __name__ == "__main__":
 	#writeLMDB(['MPI'], '/home/zhecao/MPI_pose/lmdb', 1)
-	writeLMDB(['COCO'], '/home/zhecao/COCO_kpt/lmdb', 1)
+	writeLMDB(['COCO'], 'COCO_kpt/lmdb', 1)
